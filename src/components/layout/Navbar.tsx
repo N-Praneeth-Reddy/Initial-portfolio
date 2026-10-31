@@ -61,19 +61,22 @@ export function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
         className={cn(
-          "fixed top-0 left-0 right-0 z-[900] transition-all duration-300",
+          "fixed top-0 left-0 right-0 z-[900] min-h-[76px] transition-all duration-300",
           scrolled
             ? "bg-[rgba(5,5,8,0.85)] backdrop-blur-xl border-b border-white/[0.06] py-3"
-            : "bg-transparent py-5"
+            : "bg-[rgba(5,5,8,0.42)] backdrop-blur-md py-4"
         )}
       >
-        <div className="max-w-screen-2xl mx-auto px-8 md:px-14 xl:px-20 flex items-center justify-between">
+        <div
+          className="navbar-inner max-w-screen-2xl mx-auto w-full flex items-center justify-between gap-6"
+          style={{ paddingInline: "clamp(1rem, 4vw, 4rem)" }}
+        >
           {/* Logo */}
           <motion.a
             href="#"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
-            className="relative flex items-center gap-2 group"
+              className="relative flex shrink-0 items-center gap-3 group"
             aria-label="Home"
           >
             <div className="relative h-10 w-10 rounded-xl bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-secondary)] flex items-center justify-center font-bold text-base text-white shadow-[0_0_20px_var(--color-primary-glow)]">
@@ -85,7 +88,7 @@ export function Navbar() {
           </motion.a>
 
           {/* Desktop nav links */}
-          <nav className="hidden md:flex items-center gap-1" aria-label="Primary">
+          <nav className="navbar-links hidden lg:flex items-center" aria-label="Primary">
             {NAV_LINKS.map((link) => {
               const isActive = activeSection === link.href.replace("#", "");
               return (
@@ -114,14 +117,13 @@ export function Navbar() {
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden md:flex items-center">
+          <div className="hidden lg:flex items-center">
             <Button
               variant="primary"
               size="sm"
-              magnetic
               href={SITE_CONFIG.resumeUrl}
               external
-              className="flex items-center gap-2 leading-none"
+              className="navbar-resume"
             >
               <Download size={16} />
               Resume
@@ -130,7 +132,7 @@ export function Navbar() {
 
           {/* Mobile hamburger */}
           <button
-            className="md:hidden p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors"
+            className="lg:hidden p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors"
             onClick={() => setMobileOpen((v) => !v)}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
@@ -148,7 +150,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="fixed inset-0 z-[850] bg-[rgba(5,5,8,0.97)] backdrop-blur-xl flex flex-col items-center justify-center gap-8 md:hidden"
+            className="fixed inset-0 z-[850] bg-[rgba(5,5,8,0.97)] backdrop-blur-xl flex flex-col items-center justify-center gap-8 lg:hidden"
           >
             <nav className="flex flex-col items-center gap-4" aria-label="Mobile">
               {NAV_LINKS.map((link, i) => (

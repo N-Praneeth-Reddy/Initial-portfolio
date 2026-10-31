@@ -3,7 +3,7 @@ import { useRef, useMemo } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 
-const PARTICLE_COUNT = 90;
+const PARTICLE_COUNT = 65;
 const CONNECTION_DIST = 4.8;
 
 function NetworkMesh() {
@@ -50,11 +50,23 @@ function NetworkMesh() {
     return geo;
   }, [linePositions]);
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
     if (!groupRef.current) return;
     const t = state.clock.elapsedTime;
-    groupRef.current.rotation.y = t * 0.04 + mouse.x * 0.12;
-    groupRef.current.rotation.x = t * 0.02 + mouse.y * 0.08;
+    const targetY = t * 0.012 + mouse.x * 0.04;
+    const targetX = t * 0.006 + mouse.y * 0.025;
+    groupRef.current.rotation.y = THREE.MathUtils.damp(
+      groupRef.current.rotation.y,
+      targetY,
+      1.5,
+      delta
+    );
+    groupRef.current.rotation.x = THREE.MathUtils.damp(
+      groupRef.current.rotation.x,
+      targetX,
+      1.5,
+      delta
+    );
   });
 
   return (
@@ -63,7 +75,7 @@ function NetworkMesh() {
         <pointsMaterial size={0.1} color="#6c63ff" transparent opacity={0.9} sizeAttenuation />
       </points>
       <lineSegments geometry={linesGeo}>
-        <lineBasicMaterial color="#6c63ff" transparent opacity={0.18} />
+        <lineBasicMaterial color="#6c63ff" transparent opacity={0.08} />
       </lineSegments>
     </group>
   );

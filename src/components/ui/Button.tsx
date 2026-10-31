@@ -41,9 +41,9 @@ export function Button({
   }
 
   const sizeClasses = {
-    sm: "px-6 py-3 text-sm",
-    md: "px-8 py-4 text-base",
-    lg: "px-10 py-5 text-lg",
+    sm: "min-h-10 px-6 py-2.5 text-sm",
+    md: "min-h-12 px-8 py-3.5 text-base",
+    lg: "min-h-14 px-10 py-4 text-lg",
   };
 
   const variantClasses = {
@@ -64,7 +64,7 @@ export function Button({
   };
 
   const baseClasses = cn(
-    "relative inline-flex items-center justify-center gap-3 rounded-2xl font-semibold",
+    "relative inline-flex min-w-0 items-center justify-center gap-3 rounded-2xl font-semibold leading-none",
     "transition-all duration-300 cursor-pointer select-none outline-none",
     "focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]",
     sizeClasses[size],
@@ -84,19 +84,19 @@ export function Button({
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative"
+      className="relative inline-flex"
     >
       {href ? (
         <a
           href={href}
           target={external ? "_blank" : undefined}
           rel={external ? "noopener noreferrer" : undefined}
-          className={baseClasses}
+          className={cn(baseClasses, "whitespace-nowrap")}
         >
           {children}
         </a>
       ) : (
-        <button className={baseClasses} {...props}>
+        <button className={cn(baseClasses, "whitespace-nowrap")} {...props}>
           {children}
         </button>
       )}

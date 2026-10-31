@@ -13,27 +13,18 @@ const NeuralBackground = dynamic(
   { ssr: false }
 );
 
-// Character-by-character name reveal
 function AnimatedName({ name }: { name: string }) {
   return (
     <motion.h1
       aria-label={name}
-      initial="hidden"
-      animate="visible"
-      variants={{ visible: { transition: { staggerChildren: 0.045, delayChildren: 0.5 } } }}
+      initial={{ opacity: 0, y: 18 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.65, delay: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
       className="hero-name font-extrabold tracking-tight overflow-hidden"
     >
       {name.split("").map((char, i) => (
-        <motion.span
+        <span
           key={i}
-          variants={{
-            hidden: { y: "110%", opacity: 0 },
-            visible: {
-              y: 0,
-              opacity: 1,
-              transition: { type: "spring", stiffness: 180, damping: 20 },
-            },
-          }}
           className={
             i < name.indexOf(" ")
               ? "gradient-text inline-block"
@@ -41,7 +32,7 @@ function AnimatedName({ name }: { name: string }) {
           }
         >
           {char === " " ? "\u00a0" : char}
-        </motion.span>
+        </span>
       ))}
     </motion.h1>
   );
@@ -57,6 +48,11 @@ export function Hero() {
       <div className="absolute inset-0 z-[1]">
         <NeuralBackground />
       </div>
+
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 z-[2] bg-[rgba(8,11,20,0.22)] backdrop-blur-[1px]"
+      />
 
       {/* Ambient glow orbs */}
       <GlowEffect
@@ -144,7 +140,7 @@ export function Hero() {
           transition={{ duration: 0.5, delay: 1.6 }}
           className="flex flex-wrap items-center justify-center gap-4 mb-14"
         >
-          <Button variant="primary" size="lg" magnetic href="#projects">
+          <Button variant="primary" size="lg" magnetic href="#projects" className="hero-cta">
             View Projects <ExternalLink size={18} />
           </Button>
           <Button
@@ -152,6 +148,7 @@ export function Hero() {
             size="lg"
             href={SITE_CONFIG.resumeUrl}
             external
+            className="hero-cta"
           >
             <Download size={18} />
             Download Resume
@@ -167,8 +164,8 @@ export function Hero() {
         >
           <span className="uppercase">Scroll</span>
           <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+            animate={{ y: [0, 4, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           >
             <ArrowDown size={18} />
           </motion.div>

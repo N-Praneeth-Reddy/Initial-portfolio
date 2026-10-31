@@ -35,7 +35,7 @@ function ProjectCard({
               : "project-strip-2"
           }`}
         />
-        <div className="px-7 pt-5 pb-0 flex items-center justify-between">
+        <div className="project-card-meta flex items-center justify-between">
           <span className="text-sm font-mono uppercase tracking-widest text-[var(--color-text-dim)]">
             Project 0{index + 1}
           </span>
@@ -52,7 +52,7 @@ function ProjectCard({
           </p>
 
           {/* Impact metric */}
-          <div className="mb-6 px-4 py-3 rounded-xl bg-[var(--color-primary)]/8 border border-[var(--color-primary)]/20 text-sm text-[var(--color-primary)] font-mono">
+          <div className="project-impact mb-6 rounded-xl bg-[var(--color-primary)]/8 border border-[var(--color-primary)]/20 text-sm text-[var(--color-primary)] font-mono">
             ⚡ {project.impact}
           </div>
 
@@ -71,7 +71,7 @@ function ProjectCard({
           </div>
 
           {/* Links */}
-          <div className="flex items-center gap-6 pt-6 border-t border-white/[0.08]">
+          <div className="project-card-links flex items-center gap-6 border-t border-white/[0.08]">
             {project.github && (
               <a
                 href={project.github}

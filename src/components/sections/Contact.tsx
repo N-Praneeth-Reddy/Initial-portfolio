@@ -96,7 +96,7 @@ export function Contact() {
 
       <div className="section-container section-container--narrow">
         {/* Header */}
-        <FadeInView className="mb-16 text-center">
+        <FadeInView className="contact-header text-center">
           <span className="section-label">05 / Contact</span>
           <h2 className="section-heading mb-3">Let&apos;s Build Something</h2>
           <p className="text-[var(--color-text-muted)] max-w-lg mx-auto leading-relaxed">
@@ -106,12 +106,12 @@ export function Contact() {
         </FadeInView>
 
         {/* Contact card */}
-        <FadeInView delay={0.1}>
+        <FadeInView delay={0.1} className="contact-card-wrap">
           <div className="relative rounded-2xl overflow-hidden">
             {/* Gradient border */}
             <div aria-hidden className="contact-gradient-border" />
 
-            <div className="glass rounded-2xl p-12 md:p-16">
+            <div className="contact-card-inner glass rounded-2xl">
               <AnimatePresence mode="wait">
                 {status === "success" ? (
                   <motion.div
@@ -137,7 +137,7 @@ export function Contact() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     onSubmit={handleSubmit(onSubmit)}
-                    className="space-y-7"
+                    className="space-y-8"
                     noValidate
                   >
                     <div className="contact-form-row">
@@ -212,7 +212,7 @@ export function Contact() {
         </FadeInView>
 
         {/* Social links */}
-        <FadeInView delay={0.2} className="mt-16 flex items-center justify-center gap-10">
+        <FadeInView delay={0.2} className="contact-social flex flex-wrap items-center justify-center gap-x-10 gap-y-5">
           {socials.map(({ icon: Icon, label, href, color }) => (
             <motion.a
               key={label}

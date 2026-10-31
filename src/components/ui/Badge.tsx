@@ -15,7 +15,7 @@ export function Badge({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium tracking-wide transition-all duration-200",
+        "ui-badge inline-flex items-center gap-2 rounded-full text-sm font-medium tracking-wide transition-all duration-200",
         {
           default:
             "bg-white/[0.06] text-[var(--color-text-muted)] border border-white/15 hover:border-white/25",

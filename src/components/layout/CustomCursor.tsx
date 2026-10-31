@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
@@ -13,12 +13,12 @@ export function CustomCursor() {
   const rawY = useMotionValue(-100);
 
   // Dot follows mouse exactly
-  const dotX = useSpring(rawX, { stiffness: 1000, damping: 50 });
-  const dotY = useSpring(rawY, { stiffness: 1000, damping: 50 });
+  const dotX = useSpring(rawX, { stiffness: 1200, damping: 80, mass: 0.2 });
+  const dotY = useSpring(rawY, { stiffness: 1200, damping: 80, mass: 0.2 });
 
   // Ring follows with spring delay
-  const ringX = useSpring(rawX, { stiffness: 180, damping: 22 });
-  const ringY = useSpring(rawY, { stiffness: 180, damping: 22 });
+  const ringX = useSpring(rawX, { stiffness: 280, damping: 34, mass: 0.35 });
+  const ringY = useSpring(rawY, { stiffness: 280, damping: 34, mass: 0.35 });
 
   useEffect(() => {
     // Only show on non-touch devices
@@ -30,20 +30,24 @@ export function CustomCursor() {
       setVisible(true);
     };
 
-    const onEnter = (e: MouseEvent) => {
+    const onEnter = (e: PointerEvent) => {
       const target = e.target as HTMLElement;
-      if (
-        target.closest("a, button, [role='button'], input, textarea, select, [data-cursor-hover]")
-      ) {
+      const interactive = target.closest(
+        "a, button, [role='button'], input, textarea, select, [data-cursor-hover]"
+      );
+      const related = e.relatedTarget as Node | null;
+      if (interactive && (!related || !interactive.contains(related))) {
         setHovering(true);
       }
     };
 
-    const onLeave = (e: MouseEvent) => {
+    const onLeave = (e: PointerEvent) => {
       const target = e.target as HTMLElement;
-      if (
-        target.closest("a, button, [role='button'], input, textarea, select, [data-cursor-hover]")
-      ) {
+      const interactive = target.closest(
+        "a, button, [role='button'], input, textarea, select, [data-cursor-hover]"
+      );
+      const related = e.relatedTarget as Node | null;
+      if (interactive && (!related || !interactive.contains(related))) {
         setHovering(false);
       }
     };
@@ -53,16 +57,16 @@ export function CustomCursor() {
     const onLeaveWindow = () => setVisible(false);
 
     window.addEventListener("mousemove", onMove);
-    window.addEventListener("mouseover", onEnter);
-    window.addEventListener("mouseout", onLeave);
+    window.addEventListener("pointerover", onEnter);
+    window.addEventListener("pointerout", onLeave);
     window.addEventListener("mousedown", onMouseDown);
     window.addEventListener("mouseup", onMouseUp);
     document.documentElement.addEventListener("mouseleave", onLeaveWindow);
 
     return () => {
       window.removeEventListener("mousemove", onMove);
-      window.removeEventListener("mouseover", onEnter);
-      window.removeEventListener("mouseout", onLeave);
+      window.removeEventListener("pointerover", onEnter);
+      window.removeEventListener("pointerout", onLeave);
       window.removeEventListener("mousedown", onMouseDown);
       window.removeEventListener("mouseup", onMouseUp);
       document.documentElement.removeEventListener("mouseleave", onLeaveWindow);
@@ -89,7 +93,7 @@ export function CustomCursor() {
             ? "var(--color-secondary)"
             : "var(--color-primary)",
         }}
-        transition={{ type: "spring", stiffness: 300, damping: 25 }}
+        transition={{ duration: 0.18, ease: "easeOut" }}
         className="fixed top-0 left-0 z-[9999] pointer-events-none h-9 w-9 rounded-full border-[1.5px]"
       />
 
@@ -109,7 +113,7 @@ export function CustomCursor() {
             ? "var(--color-secondary)"
             : "var(--color-primary)",
         }}
-        transition={{ type: "spring", stiffness: 600, damping: 30 }}
+        transition={{ duration: 0.14, ease: "easeOut" }}
         className="fixed top-0 left-0 z-[9999] pointer-events-none h-[7px] w-[7px] rounded-full"
       />
     </>
