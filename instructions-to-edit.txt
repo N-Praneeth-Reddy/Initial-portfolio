@@ -1,0 +1,34 @@
+1. Navigation Bar Overlay & Clutter
+The Issue: The top navigation links (About, Skills, Projects, Experience, Contact) are overlapping with the background network/particle animation graph lines. Furthermore, on the right side, the Resume button icon and text look cramped against the top edge.
+
+The Fix: * Increase the padding-top or height of the navbar container to give the links breathing room.
+
+Add a subtle semi-transparent background blur (backdrop-filter: blur(8px); background: rgba(13, 17, 23, 0.7);) to the navbar so the animated background nodes don't pass directly behind and visually conflict with the text.
+
+2. Text Overlap in Hero Subheading
+The Issue: There is a critical overlapping text issue right below your main name. The text "Architecting RAG Pipelines" is directly overlapping with the top part of the paragraph description below it ("AI/ML engineer specializing in...").
+
+The Fix: This is usually caused by a fixed height on the container or a hardcoded/insufficient line-height or margin-bottom on the <h2> tag.
+
+Ensure Architecting RAG Pipelines has a healthy bottom margin (e.g., margin-bottom: 1.5rem;).
+
+Check your layout wrapper to ensure it is using flexbox or grid with explicit gaps (gap: 1rem;) instead of absolute positioning for text blocks.
+
+3. Button Layout & Target Sizing
+The Issue: The View Projects and Download Resume call-to-action buttons are completely asymmetric. View Projects has a solid, bright blue background capsule shape, while Download Resume is plain text with an icon next to it. They lack uniform alignment, height, and target sizing, making the hero section feel unbalanced.
+
+The Fix: * Make both actions look cohesive. Either give them both a uniform button styling (one primary filled, one secondary outlined) or balance their padding.
+
+Ensure they share the same vertical alignment (align-items: center;) and have explicit gap properties between them.
+
+4. Vertical Scroll Indicator Misalignment
+The Issue: The SCROLL text and the down-arrow (↓) indicator are sitting too close to the CTA buttons. In the screenshot, it looks compressed directly underneath the button area.
+
+The Fix: Push the scroll indicator lower toward the bottom of the viewport using absolute positioning (bottom: 2rem; left: 50%; transform: translateX(-50%);) to give the hero content space to breathe.
+
+5. Stray/Floating Elements
+The Issue: On the lower-left edge, there is a isolated purple square block, and on the bottom-left corner, there is a small floating circle with an N. On the bottom right, your avatar bubble is floating partially cut off by the edge. These elements feel disconnected from the central grid alignment of the page.
+
+The Fix: * If these are intended to be floating ambient design decorations, damp down their opacity or scale them down so they don't distract from the main text.
+
+Ensure your avatar bubble on the bottom right has adequate container padding/margins (bottom: 1.5rem; right: 1.5rem;) so it doesn't look clipped by the browser edge.
