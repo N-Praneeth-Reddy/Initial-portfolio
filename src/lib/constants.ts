@@ -11,7 +11,7 @@ export const SITE_CONFIG = {
   ],
   bio: "AI/ML engineer specializing in agentic AI and scalable backend systems. I build LLM-driven workflows, multi-agent orchestrations, and production-grade RAG solutions that actually ship.",
   location: "Hyderabad, India",
-  email: "n.praneeth.k@gmail.com",
+  email: "n.praneeth.kr@gmail.com",
   github: "https://github.com/N-Praneeth-Reddy",
   linkedin: "https://www.linkedin.com/in/praneeth-reddy-936bb3262/",
   resumeUrl: "/resume.pdf",
